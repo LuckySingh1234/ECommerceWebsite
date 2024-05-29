@@ -1,7 +1,19 @@
-$(document).ready(function() {
-    const productArray = getProducts().then(productsArray => {
-        if (productsArray === null) {
+const categoryApiMap = {
+    'shirt': 'https://b8e846cae0cc45d6a291607f6fd56738.api.mockbin.io/',
+    'tshirt': 'value2',
+    'pant': 'value3',
+    'saree': 'value4',
+    'chudi': 'value5'
+};
 
+$(document).ready(function() {
+    var params = new URLSearchParams(window.location.search);
+    var categoryName = params.get('category');
+    var categoryWiseAPI = categoryApiMap[categoryName];
+
+    const productArray = getProducts(categoryWiseAPI).then(productsArray => {
+        if (productsArray === null) {
+            return;
         } else {
             productsArray.forEach(item => {
                 const allCardsContainer = document.querySelector('#allCardsContainer')
@@ -32,9 +44,9 @@ function handleButtonClick(addToCartBtn) {
     }
 }
 
-async function getProducts() {
+async function getProducts(categoryWiseAPI) {
     try {
-        const response = await fetch('https://b8e846cae0cc45d6a291607f6fd56738.api.mockbin.io/', {
+        const response = await fetch(categoryWiseAPI, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

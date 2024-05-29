@@ -22,7 +22,8 @@
         <link rel="stylesheet" href="../CSS/style.css">
 
         <!--Linking Custom JavaScript-->
-        <script src="../JS/home.js"></script>
+        <script src="../JS/nav.js"></script>
+        <script src="../JS/util.js"></script>
 
         <!--Link for font awesome favicons-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
@@ -55,11 +56,11 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu mr-auto smooth-scroll">
-                                    <li class="dropdown-item"><a class="category-link" href="/category/pant.html"> Pant </a></li>
-                                    <li class="dropdown-item"><a class="category-link" href="/category/shirt.html"> Shirt </a></li>
-                                    <li class="dropdown-item"><a class="category-link" href="/category/tshirt.html"> T-Shirt </a></li>
-                                    <li class="dropdown-item"><a class="category-link" href="/category/saree.html"> Saree </a></li>
-                                    <li class="dropdown-item"><a class="category-link" href="/category/chudi.html"> Chudi </a></li>
+                                    <li class="dropdown-item"><a class="category-link" href="/products.html?category=pant"> Pant </a></li>
+                                    <li class="dropdown-item"><a class="category-link" href="/products.html?category=shirt"> Shirt </a></li>
+                                    <li class="dropdown-item"><a class="category-link" href="/products.html?category=tshirt"> T-Shirt </a></li>
+                                    <li class="dropdown-item"><a class="category-link" href="/products.html?category=saree"> Saree </a></li>
+                                    <li class="dropdown-item"><a class="category-link" href="/products.html?category=chudi"> Chudi </a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -106,22 +107,10 @@
         </header>
 
         <main>
-            <!-- <section class="intro-section pt-3 mt-4">
-                <div class="jumbotron text-center" style="background-color: #dfb7df;">
-                    <h6 class="display-4">
-                        <span style="color: rgb(247, 0, 255);"> Welcome to </span> <br>
-                        <span style="color: rgba(216, 13, 57, 0.945); font-weight:500;"> E-COMMERCE STORE </span>
-                    </h6>
-                    <p class="lead mt-3">
-                        Welcome to E-COMMERCE Store where you can get everything related to fashion and gifting.
-                        Be it for an occasion or for day to day use, you will find the right accessories for you.
-                        Be it a birthday party of a kid or the inaugration of a newly built house,
-                        we have the perfect gifting option for you.
-                    </p>
-                    <hr class="my-5">
-                    <a href="#contact"> <button class="btn btn-lg btn-outline-success"> Contact Us </button> </a>
-                </div>
-            </section> -->
+            <div class="container" style="margin-top: 5rem;">
+                <div class="row" id="allCardsContainer">
+                    <!-- Add rows dynamically using DOM manipulation -->
+            </div>
         </main>
 
     </body>
