@@ -1,24 +1,34 @@
 $(document).ready(function() {
-    let signedInUser = localStorage.getItem('signedInUser');
+    let signedInUserJsonString = localStorage.getItem('signedInUser');
+    let signedInUser = JSON.parse(signedInUserJsonString);
 
     const myCartBtn = document.getElementById('mycartbtn');
     const signInBtn = document.getElementById('signinbtn');
-    const signOutBtn = document.getElementById('signoutbtn');
+    const profileBtn = document.getElementById('profileBtn');
     const signUpBtn = document.getElementById('signupbtn');
+
+    const name = document.getElementById('name');
+    const mobile = document.getElementById('mobile');
+    const email = document.getElementById('email');
+
     if (signedInUser !== null) {
         myCartBtn.style.display = 'block';
         signInBtn.style.display = 'none';
         signUpBtn.style.display = 'none';
-        signOutBtn.style.display = 'block';
+        profileBtn.style.display = 'block';
+
+        name.innerHTML = signedInUser.name;
+        mobile.innerHTML = signedInUser.mobile;
+        email.innerHTML = signedInUser.email;
     } else {
         myCartBtn.style.display = 'none';
         signInBtn.style.display = 'block';
         signUpBtn.style.display = 'block';
-        signOutBtn.style.display = 'none';
+        profileBtn.style.display = 'none';
     }
 });
 
 function signOut() {
     localStorage.removeItem('signedInUser');
-    window.location = 'signin.html'
+    window.location = '/signin.html'
 }
