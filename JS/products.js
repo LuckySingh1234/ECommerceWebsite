@@ -8,10 +8,10 @@ const categoryParamToCategoryNameMap = {
 
 const categoryApiMap = {
     'shirt': 'https://b8e846cae0cc45d6a291607f6fd56738.api.mockbin.io/',
-    'tshirt': 'value2',
-    'pant': 'value3',
-    'saree': 'value4',
-    'chudi': 'value5'
+    'tshirt': 'https://56009baf9c774d5883354efa8c3988b0.api.mockbin.io/',
+    'pant': 'https://ffb7144fba1e4745bce1b6f7e6130fff.api.mockbin.io/',
+    'saree': 'https://cb6c1a6b3678477599f897700d1cf7ea.api.mockbin.io/',
+    'chudi': 'https://c2b0b6d4cd5e4033b7c20c918d9c8784.api.mockbin.io/'
 };
 
 $(document).ready(function() {
