@@ -1,4 +1,11 @@
-$(document).ready(function() {
+$(document).ready(renderCartItems);
+
+function renderCartItems() {
+    const tableBody = document.querySelector('#cartTable tbody');
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+    }
+
     const cartItems = getUsersCartsData();
     if (cartItems === null || cartItems.length === 0) {
         const cartPageContent = document.getElementById('cartPageContent');
@@ -10,11 +17,16 @@ $(document).ready(function() {
 
             const cartTableBody = document.querySelector('#cartTable tbody');
             const cartTableBodyHtml = `
-            <tr>
+            <tr class="productRow">
+                <td class="productId" style="display: none;">${item.productId}</td>
                 <td><img src=${item.image_url} width="50" height="50" alt="Product Image"></td>
                 <td>${item.productName}</td>
                 <td>${item.category}</td>
-                <td>${item.quantity}</td>
+                <td>
+                    <button class="quantity-btn decrease-btn" onclick="updateQuantity(this, -1)">-</button>
+                    ${item.quantity}
+                    <button class="quantity-btn increase-btn" onclick="updateQuantity(this, 1)">+</button>
+                </td>
                 <td>INR ${parseFloat(item.price).toFixed(2)}</td>
                 <td>INR ${parseFloat(totalPrice).toFixed(2)}</td>
                 <td><button class="removeFromCartBtn btn btn-primary btn-sm" onclick="removeFromCart(this)">Remove</button></td>
@@ -26,7 +38,7 @@ $(document).ready(function() {
         const totalAmountDomELement = document.querySelector('#totalAmount')
         totalAmountDomELement.innerHTML = `<h5>Total Amount: INR ${totalAmount.toFixed(2)}</h5>`;
     }
-});
+}
 
 function getUsersCartsData() {
     const signedInUserJsonString = localStorage.getItem('signedInUser');
@@ -48,4 +60,53 @@ function getUsersCartsData() {
     } else {
         return null;
     }
+}
+
+function updateQuantity(qtyUpdateBtn, qty) {
+    const signedInUserJsonString = localStorage.getItem('signedInUser');
+    const signedInUser = JSON.parse(signedInUserJsonString);
+    const email = signedInUser.email;
+
+    const productRow = qtyUpdateBtn.closest('.productRow');
+    const productIdElement = productRow.querySelector('.productId');
+    const productId = productIdElement.textContent;
+
+    let cartItems = getUsersCartsData();
+    const product = cartItems.find(item => item.productId === productId);
+    const newQty = product.quantity + qty;
+    if (newQty > 5) {
+        // add alert
+        return;
+    }
+    if (newQty === 0) {
+        // add alert
+        return;
+    }
+    cartItems.forEach(item => {
+        if (item.productId === productId) {
+            item.quantity = newQty;
+        }
+    });
+    let allUsersCarts = JSON.parse(localStorage.getItem('usersCarts'));
+    allUsersCarts[email] = cartItems;
+    localStorage.setItem('usersCarts', JSON.stringify(allUsersCarts));
+    renderCartItems();
+}
+
+function removeFromCart(removeFromCartBtn) {
+    const signedInUserJsonString = localStorage.getItem('signedInUser');
+    const signedInUser = JSON.parse(signedInUserJsonString);
+    const email = signedInUser.email;
+
+    const productRow = removeFromCartBtn.closest('.productRow');
+    const productIdElement = productRow.querySelector('.productId');
+    const productId = productIdElement.textContent;
+
+    let cartItems = getUsersCartsData();
+    const filteredCartItems = cartItems.filter(item => item.productId !== productId);
+
+    let allUsersCarts = JSON.parse(localStorage.getItem('usersCarts'));
+    allUsersCarts[email] = filteredCartItems;
+    localStorage.setItem('usersCarts', JSON.stringify(allUsersCarts));
+    renderCartItems();
 }
