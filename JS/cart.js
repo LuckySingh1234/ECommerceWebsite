@@ -81,12 +81,18 @@ function updateQuantity(qtyUpdateBtn, qty) {
         const alert = document.getElementById('cart-alert');
         alert.innerText = 'Quantity cannot exceed 5';
         alert.style.display = 'block';
+        setTimeout(function() {
+            dismissAlert('cart-alert');
+        }, 1000);
         return;
     }
     if (newQty === 0) {
         const alert = document.getElementById('cart-alert');
         alert.innerText = 'Quantity cannot be less than 1';
         alert.style.display = 'block';
+        setTimeout(function() {
+            dismissAlert('cart-alert');
+        }, 1000);
         return;
     }
     cartItems.forEach(item => {
@@ -116,4 +122,11 @@ function removeFromCart(removeFromCartBtn) {
     allUsersCarts[email] = filteredCartItems;
     localStorage.setItem('usersCarts', JSON.stringify(allUsersCarts));
     renderCartItems();
+}
+
+function dismissAlert(alertId) {
+    var alert = document.getElementById(alertId);
+    setTimeout(function() {
+        alert.style.display = 'none';
+    });
 }

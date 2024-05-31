@@ -102,6 +102,9 @@ function addItemToUsersCarts(newProduct) {
                 } else {
                     failureAlert.innerText = 'Product with this ID already exists.';
                     failureAlert.style.display = 'block';
+                    setTimeout(function() {
+                        dismissAlert('productAdditionFailureAlert');
+                    }, 1000);
                     return;
                 }
             } else {
@@ -116,8 +119,11 @@ function addItemToUsersCarts(newProduct) {
     const updatedDataString = JSON.stringify(data);
     localStorage.setItem('usersCarts', updatedDataString);
 
-    successAlert.innerText = 'Product added to acrt successfully';
+    successAlert.innerText = 'Product added to cart successfully';
     successAlert.style.display = 'block';
+    setTimeout(function() {
+        dismissAlert('productAdditionSuccessAlert');
+    }, 1000);
 }
 
 async function getProducts(categoryWiseAPI) {
@@ -134,4 +140,11 @@ async function getProducts(categoryWiseAPI) {
         console.error(error);
         return null;
     }
+}
+
+function dismissAlert(alertId) {
+    var alert = document.getElementById(alertId);
+    setTimeout(function() {
+        alert.style.display = 'none';
+    });
 }
