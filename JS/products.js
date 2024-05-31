@@ -15,6 +15,11 @@ const categoryApiMap = {
 };
 
 $(document).ready(function() {
+    const successAlert = document.getElementById('productAdditionSuccessAlert');
+    const failureAlert = document.getElementById('productAdditionFailureAlert');
+    successAlert.style.display = 'none';
+    failureAlert.style.display = 'none';
+
     var params = new URLSearchParams(window.location.search);
     var categoryName = params.get('category');
     var categoryWiseAPI = categoryApiMap[categoryName];
@@ -78,6 +83,11 @@ function addToCart(addToCartBtn) {
 }
 
 function addItemToUsersCarts(newProduct) {
+    const successAlert = document.getElementById('productAdditionSuccessAlert');
+    const failureAlert = document.getElementById('productAdditionFailureAlert');
+    successAlert.style.display = 'none';
+    failureAlert.style.display = 'none';
+
     const signedInUserJsonString = localStorage.getItem('signedInUser');
     const signedInUser = JSON.parse(signedInUserJsonString);
     const localStorageData = localStorage.getItem('usersCarts');
@@ -90,8 +100,9 @@ function addItemToUsersCarts(newProduct) {
                 if (!productExists) {
                     data[email].push(newProduct);
                 } else {
-                    // console.log('Product with this ID already exists.');
-                    // Write code to display UI alert
+                    failureAlert.innerText = 'Product with this ID already exists.';
+                    failureAlert.style.display = 'block';
+                    return;
                 }
             } else {
                 data[email] = [newProduct];
@@ -104,6 +115,9 @@ function addItemToUsersCarts(newProduct) {
     }
     const updatedDataString = JSON.stringify(data);
     localStorage.setItem('usersCarts', updatedDataString);
+
+    successAlert.innerText = 'Product added to acrt successfully';
+    successAlert.style.display = 'block';
 }
 
 async function getProducts(categoryWiseAPI) {

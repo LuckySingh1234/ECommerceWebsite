@@ -78,3 +78,16 @@ th, td {
 .increase-btn {
     color: #33ff77; /* Green color for increase button */
 }
+
+#cart-alert {
+    position: relative;
+    top: 100px;
+    z-index: 100;
+}
+
+#productAdditionSuccessAlert, #productAdditionFailureAlert {
+    position: fixed;
+    top: 550px;
+    width: 50%;
+    margin-left: 10%;
+}

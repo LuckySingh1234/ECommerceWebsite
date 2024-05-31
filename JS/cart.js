@@ -1,6 +1,9 @@
 $(document).ready(renderCartItems);
 
 function renderCartItems() {
+    const alert = document.getElementById('cart-alert');
+    alert.style.display = 'none';
+
     const tableBody = document.querySelector('#cartTable tbody');
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
@@ -75,11 +78,15 @@ function updateQuantity(qtyUpdateBtn, qty) {
     const product = cartItems.find(item => item.productId === productId);
     const newQty = product.quantity + qty;
     if (newQty > 5) {
-        // add alert
+        const alert = document.getElementById('cart-alert');
+        alert.innerText = 'Quantity cannot exceed 5';
+        alert.style.display = 'block';
         return;
     }
     if (newQty === 0) {
-        // add alert
+        const alert = document.getElementById('cart-alert');
+        alert.innerText = 'Quantity cannot be less than 1';
+        alert.style.display = 'block';
         return;
     }
     cartItems.forEach(item => {
